@@ -6,6 +6,7 @@
 
 ## 📋 Description
 
+
 Application web simple pour **calculer les intérêts simples** d'une épargne. Parfait pour les **débutants en JavaScript** !
 
 ### ✨ Fonctionnalités
