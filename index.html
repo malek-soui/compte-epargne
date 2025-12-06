@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur d'Épargne - Intérêts Simples</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête de l'application -->
+        <header>
+            <h1>💰 Calculateur d'Épargne</h1>
+            <p class="subtitle">Calculez les intérêts simples de votre épargne</p>
+        </header>
+
+        <!-- Section du formulaire principal -->
+        <section class="calculateur-section">
+            <h2>📊 Paramètres de votre épargne</h2>
+            
+            <form id="epargneForm">
+                <div class="form-group">
+                    <label for="capitalInitial">💵 Capital initial (€) :</label>
+                    <input type="number" id="capitalInitial" step="0.01" min="0.01" 
+                           placeholder="Ex: 1000" required>
+                    <small>Le montant que vous déposez au départ</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="tauxInteret">📈 Taux d'intérêt annuel (%) :</label>
+                    <input type="number" id="tauxInteret" step="0.01" min="0.01" 
+                           placeholder="Ex: 5" required>
+                    <small>Le pourcentage d'intérêt par an</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="duree">⏰ Durée (années) :</label>
+                    <input type="number" id="duree" step="0.5" min="0.5" 
+                           placeholder="Ex: 2" required>
+                    <small>La période pendant laquelle votre argent reste bloqué</small>
+                </div>
+
+                <button type="submit" class="btn-calculer">
+                    🧮 Calculer mes gains
+                </button>
+            </form>
+        </section>
+
+        <!-- Section des résultats -->
+        <section class="resultats-section" id="resultatsSection">
+            <h2>💎 Résultats de votre épargne</h2>
+            
+            <div class="resultats-grid">
+                <div class="resultat-card capital">
+                    <div class="resultat-icon">💵</div>
+                    <div class="resultat-info">
+                        <p class="resultat-label">Capital initial</p>
+                        <p class="resultat-valeur" id="affichageCapital">0.00 €</p>
+                    </div>
+                </div>
+
+                <div class="resultat-card interets">
+                    <div class="resultat-icon">💰</div>
+                    <div class="resultat-info">
+                        <p class="resultat-label">Intérêts gagnés</p>
+                        <p class="resultat-valeur" id="affichageInterets">0.00 €</p>
+                    </div>
+                </div>
+
+                <div class="resultat-card total">
+                    <div class="resultat-icon">🎯</div>
+                    <div class="resultat-info">
+                        <p class="resultat-label">Montant final</p>
+                        <p class="resultat-valeur" id="affichageTotal">0.00 €</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Détails du calcul -->
+            <div class="details-calcul" id="detailsCalcul">
+                <h3>📝 Détails du calcul</h3>
+                <div class="formule-box">
+                    <p><strong>Formule utilisée :</strong></p>
+                    <p class="formule">Intérêts = Capital × Taux × Durée</p>
+                    <p class="formule-exemple" id="formuleExemple"></p>
+                </div>
+                
+                <div class="interpretation">
+                    <p id="interpretationTexte"></p>
+                </div>
+            </div>
+
+            <!-- Graphique de progression -->
+            <div class="graphique-section">
+                <h3>📈 Évolution de votre épargne</h3>
+                <div class="graphique-container">
+                    <div class="barre-container">
+                        <div class="barre capital-barre" id="barreCapital">
+                            <span class="barre-label">Capital</span>
+                        </div>
+                    </div>
+                    <div class="barre-container">
+                        <div class="barre interets-barre" id="barreInterets">
+                            <span class="barre-label">Intérêts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section comparaison de scénarios -->
+        <section class="comparaison-section">
+            <h2>🔍 Comparer différents scénarios</h2>
+            <p class="section-description">Voyez comment différents paramètres affectent vos gains</p>
+            
+            <div class="scenarios-grid" id="scenariosGrid">
+                <!-- Les scénarios seront générés en JavaScript -->
+            </div>
+
+            <button type="button" class="btn-secondary" onclick="genererScenarios()">
+                🔄 Générer des scénarios
+            </button>
+        </section>
+
+        <!-- Section historique des calculs -->
+        <section class="historique-section">
+            <div class="historique-header">
+                <h2>📜 Historique de vos calculs</h2>
+                <button type="button" class="btn-danger" onclick="effacerHistorique()">
+                    🗑️ Effacer
+                </button>
+            </div>
+            
+            <div id="listeHistorique" class="liste-historique">
+                <p class="message-vide">Aucun calcul effectué pour le moment. Commencez ci-dessus ! 👆</p>
+            </div>
+        </section>
+
+        <!-- Section informations utiles -->
+        <section class="info-section">
+            <h2>💡 Informations utiles</h2>
+            
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>📚 Qu'est-ce que l'intérêt simple ?</h3>
+                    <p>L'intérêt simple est calculé uniquement sur le capital initial, 
+                       contrairement à l'intérêt composé qui se calcule sur le capital + les intérêts.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🧮 Comment ça marche ?</h3>
+                    <p>Si vous placez <strong>1000€</strong> à <strong>5%</strong> pendant <strong>2 ans</strong> :</p>
+                    <p class="calcul-exemple">Intérêts = 1000 × 0.05 × 2 = <strong>100€</strong></p>
+                    <p>Vous aurez donc <strong>1100€</strong> au total !</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>💰 Conseils pratiques</h3>
+                    <ul>
+                        <li>Plus le taux est élevé, plus vous gagnez</li>
+                        <li>Plus la durée est longue, plus vous gagnez</li>
+                        <li>Comparez toujours plusieurs offres d'épargne</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Inclusion du fichier JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
